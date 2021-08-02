@@ -1,7 +1,0 @@
-postgresql:
-  enabled: true
-  postgresqlUsername: postgres
-  postgresqlPassword: postgres
-  postgresqlDatabase: postgres
-  service:
-    port: "5432"
