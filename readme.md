@@ -15,6 +15,7 @@ helm install pg helm_postgres/bitnami_postgresql.yaml
 //install hw service from charts in this repo
 helm install helm_app 
 ```
+  
 
 For checking HW please execute the following cURLSs
 ```bash
@@ -33,3 +34,7 @@ curl --location --request POST 'http://arch.homework/user' \
 curl --location --request GET 'http://arch.homework/user/1' \
 --header 'Accept: application/json'
 ```
+
+  
+
+If postman collections is more comfortable for you, use [this](Otus-lesson-6.postman_collection.json) postman collection.
