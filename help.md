@@ -1,14 +1,35 @@
-** Please be patient while the chart is being deployed **
+# Otus microservice architecture HW6
+## Helm
 
-PostgreSQL can be accessed via port 5432 on the following DNS names from within your cluster:
+For running HW please execute the next commands
+```bash
+//if you use Minikube execute the following commands
+minikube start
+minikube addons enable metallb
+minikube addins enable ingress
 
-    pg-postgresql.default.svc.cluster.local - Read/Write connection
+//install postgres from bitnami repo with helm
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm install pg helm_postgres/bitnami_postgresql.yaml 
 
-To get the password for "postgres" run:
+//install hw service from charts in this repo
+helm install helm_app 
+```
 
-    export POSTGRES_PASSWORD=$(kubectl get secret --namespace default pg-postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode)
-
-To connect to your database run the following command:
-
-    kubectl run pg-postgresql-client --rm --tty -i --restart='Never' --namespace default --image docker.io/bitnami/postgresql:11.12.0-debian-10-r44 --env="PGPASSWORD=$POSTGRES_PASSWORD" --command -- psql --host pg-postgresql -U postgres -d postgres -p 5432
-
+For checking HW please execute the following cURLSs
+```bash
+// post new user
+curl --location --request POST 'http://arch.homework/user' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "id": 1,
+    "username": "username1",
+    "firstName": "firstName1",
+    "lastName": "lastName1",
+    "email": "email1",
+    "phone": "phone1"
+}'
+// get saved user
+curl --location --request GET 'http://arch.homework/user/1' \
+--header 'Accept: application/json'
+```
