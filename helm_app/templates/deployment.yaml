@@ -20,8 +20,17 @@ spec:
               containerPort: 8080
           env:
             - name: SPRING_DATASOURCE_URL
-              value: "{{ .Values.externalPostgresql.postgresqlUrl }}"
+              valueFrom:
+                secretKeyRef:
+                  name: otus-lesson-6-secret
+                  key: PG_DATASOURCE
             - name: SPRING_DATASOURCE_USERNAME
-              value: {{ .Values.externalPostgresql.postgresqlUsername }}
+              valueFrom:
+                secretKeyRef:
+                  name: otus-lesson-6-secret
+                  key: PG_USERNAME
             - name: SPRING_DATASOURCE_PASSWORD
-              value: {{ .Values.externalPostgresql.postgresqlPassword }}
+              valueFrom:
+                secretKeyRef:
+                  name: otus-lesson-6-secret
+                  key: PG_PASSWORD

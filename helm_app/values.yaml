@@ -1,4 +1,4 @@
-replicaCount: 2
+replicaCount: 1
 
 image: alexanderrodnin/otus-lesson-6:v1
 
