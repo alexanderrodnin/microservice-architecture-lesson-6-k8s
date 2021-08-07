@@ -1,61 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "helm_app.fullname" . }}
-  labels:
-    {{- include "helm_app.labels" . | nindent 4 }}
+  name: arch-hw-6-deployment
 spec:
-  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
-  {{- end }}
   selector:
     matchLabels:
-      {{- include "helm_app.selectorLabels" . | nindent 6 }}
+      app: arch-hw-6-app
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
-      annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
       labels:
-        {{- include "helm_app.selectorLabels" . | nindent 8 }}
+        app: arch-hw-6-app
     spec:
-      {{- with .Values.imagePullSecrets }}
-      imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      serviceAccountName: {{ include "helm_app.serviceAccountName" . }}
-      securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+        - name: otus-lesson-6
+          image: "{{ .Values.image }}"
           ports:
-            - name: http
-              containerPort: 80
-              protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
-      {{- with .Values.nodeSelector }}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+            - name: web
+              containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: "{{ .Values.externalPostgresql.postgresqlUrl }}"
+            - name: SPRING_DATASOURCE_USERNAME
+              value: {{ .Values.externalPostgresql.postgresqlUsername }}
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: {{ .Values.externalPostgresql.postgresqlPassword }}
