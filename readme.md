@@ -1,7 +1,7 @@
 # Otus microservice architecture HW6
 ## Helm
 
-For running HW please execute the next commands
+For **running** HW please execute the next commands
 ```bash
 //if you use Minikube execute the following commands
 minikube start
@@ -17,7 +17,7 @@ helm install helm_app
 ```
   
 
-For checking HW please execute the following cURLSs
+For **checking** HW please execute the following cURLSs
 ```bash
 // post new user
 curl --location --request POST 'http://arch.homework/user' \
@@ -37,4 +37,4 @@ curl --location --request GET 'http://arch.homework/user/1' \
 
   
 
-If postman collections is more comfortable for you, use [this](Otus-lesson-6.postman_collection.json) postman collection.
+If **Postman** collections is more comfortable for you, use [this](Otus-lesson-6.postman_collection.json) postman collection.
