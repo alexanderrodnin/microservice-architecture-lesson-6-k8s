@@ -14,14 +14,14 @@ spec:
     spec:
       containers:
         - name: otus-lesson-6
-          image: alexanderrodnin/otus-lesson-6:v1
+          image: "alexanderrodnin/otus-lesson-6:v1"
           ports:
             - name: web
               containerPort: 8080
           env:
-          - name: SPRING_DATASOURCE_URL
-            value: "jdbc:postgresql://pg-postgresql:5432/postgres"
-          - name: SPRING_DATASOURCE_USERNAME
-            value: "postgres"
-          - name: SPRING_DATASOURCE_PASSWORD
-            value: "lIdhqKuQUV"
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:postgresql://pg-postgresql:5432/postgres"
+            - name: SPRING_DATASOURCE_USERNAME
+              value: "postgres"
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: "postgres"
